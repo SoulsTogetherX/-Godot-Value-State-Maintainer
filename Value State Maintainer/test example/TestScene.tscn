@@ -1,0 +1,137 @@
+[gd_scene load_steps=5 format=3 uid="uid://dym5xsa3bgwe2"]
+
+[ext_resource type="Script" path="res://test example/path_follow_2d.gd" id="2_jctjw"]
+[ext_resource type="Texture2D" uid="uid://dov4kncgd8iyb" path="res://icon.svg" id="3_sklkk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbb77"]
+
+[sub_resource type="Curve2D" id="Curve2D_xqs71"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -190.426, -66.639, 0, 0, 0, 0, 523.574, -68.6392, 0, 0, 0, 0, 523, 248, 0, 0, 0, 0, -192, 249, 0, 0, 0, 0, -190.426, -66.639)
+}
+point_count = 5
+
+[node name="VBoxContainer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BoxContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+offset_right = 1152.0
+offset_bottom = 100.0
+size_flags_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TestScene" type="Button" parent="BoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_dbb77")
+text = "Pallet Swap"
+metadata/__theme_maintainer__ = {
+"color": "pal/netural/Button.c",
+"modulate": "pal/Netural/Button.c",
+"theme_override_styles/normal": "pal/Netural/Button.c"
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Rainbow-Red" type="ColorRect" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 0, 0, 1)
+metadata/__theme_maintainer__ = {
+"color": "pal/Dual/Rainbow-1.d"
+}
+
+[node name="Rainbow-Orange" type="ColorRect" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 0.647059, 0, 1)
+metadata/__theme_maintainer__ = {
+"color": "pal/Dual/Rainbow-2.d"
+}
+
+[node name="Rainbow-Yellow" type="ColorRect" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 1, 0, 1)
+metadata/__theme_maintainer__ = {
+"color": "pal/Dual/Rainbow-3.d"
+}
+
+[node name="Rainbow-Green" type="ColorRect" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0, 1, 0, 1)
+metadata/__theme_maintainer__ = {
+"color": "pal/Netural/Rainbow-4.c"
+}
+
+[node name="Rainbow-Blue" type="ColorRect" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0, 0, 1, 1)
+metadata/__theme_maintainer__ = {
+"color": "pal/Dual/Rainbow-5.d"
+}
+
+[node name="Rainbow-Indigo" type="ColorRect" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.294118, 0, 0.509804, 1)
+metadata/__theme_maintainer__ = {
+"color": "pal/Dual/Rainbow-6.d"
+}
+
+[node name="Rainbow-Violet" type="ColorRect" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.560784, 0, 1, 1)
+metadata/__theme_maintainer__ = {
+"color": "pal/Dual/Rainbow-7.d"
+}
+
+[node name="Path2D" type="Path2D" parent="MarginContainer"]
+position = Vector2(400, 150)
+curve = SubResource("Curve2D_xqs71")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="MarginContainer/Path2D"]
+position = Vector2(-190.426, -66.639)
+rotation = -0.00280139
+script = ExtResource("2_jctjw")
+metadata/__theme_maintainer__ = {
+"speed": [1.0, 5.0]
+}
+
+[node name="Icon" type="Sprite2D" parent="MarginContainer/Path2D/PathFollow2D"]
+position = Vector2(0.415802, 3.64018)
+texture = ExtResource("3_sklkk")
+metadata/__theme_maintainer__ = {
+"self_modulate": "pal/Netural/Icon.d"
+}
+
+[connection signal="pressed" from="BoxContainer/TestScene" to="BoxContainer/TestScene" method="press"]

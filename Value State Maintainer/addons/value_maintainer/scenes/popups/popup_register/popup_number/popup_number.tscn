@@ -1,0 +1,84 @@
+[gd_scene load_steps=2 format=3 uid="uid://byw3e4tq5oew"]
+
+[ext_resource type="Script" path="res://addons/value_maintainer/scenes/popups/popup_register/popup_number/popup_number.gd" id="1_vvvsf"]
+
+[node name="Popup Number" type="Window"]
+positional_shadow_atlas_size = 100
+title = "ValueTheme Selector"
+initial_position = 1
+size = Vector2i(250, 230)
+visible = false
+exclusive = true
+always_on_top = true
+popup_window = true
+extend_to_title = true
+keep_title_visible = true
+script = ExtResource("1_vvvsf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Value Dialog" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Panel" type="Panel" parent="VBoxContainer/Value Dialog"]
+layout_mode = 2
+
+[node name="Docker Margin" type="MarginContainer" parent="VBoxContainer/Value Dialog"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Docker" type="VBoxContainer" parent="VBoxContainer/Value Dialog/Docker Margin"]
+layout_mode = 2
+
+[node name="Light" type="VBoxContainer" parent="VBoxContainer/Value Dialog/Docker Margin/Docker"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Value Dialog/Docker Margin/Docker/Light"]
+layout_mode = 2
+text = "Light"
+horizontal_alignment = 1
+
+[node name="Dark" type="VBoxContainer" parent="VBoxContainer/Value Dialog/Docker Margin/Docker"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="Label" type="Label" parent="VBoxContainer/Value Dialog/Docker Margin/Docker/Dark"]
+layout_mode = 2
+text = "Dark"
+horizontal_alignment = 1
+
+[node name="Bottom Dialog" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="Unregister" type="Button" parent="VBoxContainer/Bottom Dialog"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Unregister"
+
+[node name="Register" type="Button" parent="VBoxContainer/Bottom Dialog"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Register"
+
+[connection signal="pressed" from="VBoxContainer/Bottom Dialog/Unregister" to="." method="_on_unregister"]
+[connection signal="pressed" from="VBoxContainer/Bottom Dialog/Register" to="." method="_on_register"]
