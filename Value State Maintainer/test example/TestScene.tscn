@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://dym5xsa3bgwe2"]
+[gd_scene load_steps=6 format=3 uid="uid://dym5xsa3bgwe2"]
 
+[ext_resource type="Script" path="res://test example/button.gd" id="1_lk1ws"]
 [ext_resource type="Script" path="res://test example/path_follow_2d.gd" id="2_jctjw"]
 [ext_resource type="Texture2D" uid="uid://dov4kncgd8iyb" path="res://icon.svg" id="3_sklkk"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbb77"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jpd7x"]
+bg_color = Color(1, 1, 1, 1)
+metadata/__theme_maintainer__ = {
+"bg_color": "pal/Dual/Icon.d"
+}
 
 [sub_resource type="Curve2D" id="Curve2D_xqs71"]
 _data = {
@@ -31,17 +36,11 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="TestScene" type="Button" parent="BoxContainer"]
-clip_contents = true
-custom_minimum_size = Vector2(200, 80)
+[node name="Button" type="Button" parent="BoxContainer"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_dbb77")
-text = "Pallet Swap"
-metadata/__theme_maintainer__ = {
-"color": "pal/netural/Button.c",
-"modulate": "pal/Netural/Button.c",
-"theme_override_styles/normal": "pal/Netural/Button.c"
-}
+text = "Swap Pallet"
+script = ExtResource("1_lk1ws")
+style = SubResource("StyleBoxFlat_jpd7x")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -131,7 +130,5 @@ metadata/__theme_maintainer__ = {
 position = Vector2(0.415802, 3.64018)
 texture = ExtResource("3_sklkk")
 metadata/__theme_maintainer__ = {
-"self_modulate": "pal/Netural/Icon.d"
+"self_modulate": "pal/Dual/Icon.d"
 }
-
-[connection signal="pressed" from="BoxContainer/TestScene" to="BoxContainer/TestScene" method="press"]

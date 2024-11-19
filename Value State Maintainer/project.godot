@@ -17,11 +17,11 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-PalletAccessor="*res://addons/value_maintainer/scenes/singletons/PalletAccessor.gd"
+PalletAccessor="*res://addons/value_state_maintainer/scenes/singletons/PalletAccessor.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/value_maintainer/plugin.cfg")
+enabled=PackedStringArray("res://addons/value_state_maintainer/plugin.cfg")
 
 [rendering]
 
