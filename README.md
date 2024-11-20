@@ -20,6 +20,10 @@ After enabling the addon (Project > Project Settings > Plugins > ValueStateMaint
 
 • Support for property hints and hint_string
 
+• Support Exported Dictionaries
+
+• Support Nested Arrays
+
 • Support Editor Themes
 
 • Allow all values, not just colors, to be stored as files in the **ColorTree**
