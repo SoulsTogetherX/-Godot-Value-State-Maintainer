@@ -20,6 +20,8 @@ var editor_ref : BaseThemeEditorProperty
 func _ready() -> void:
 	close_requested.connect(hide)
 
+func _on_closed_pressed() -> void:
+	close_requested.emit()
 func _emit_closed() -> void:
 	close_requested.emit()
 func _on_register(value : Variant) -> void:

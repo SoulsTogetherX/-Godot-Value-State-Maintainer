@@ -22,8 +22,6 @@ After enabling the addon (Project > Project Settings > Plugins > ValueStateMaint
 
 • Support Editor Themes
 
-• Fix bug - User becomes locked out of ColorPicker when selecting any item on the **ColorMenu** (the PopupMenu shown upon right clicking on any folder or color in the **ColorTree**). Right click on the ColorPicker to fix temporarily.
-
 • Allow all values, not just colors, to be stored as files in the **ColorTree**
 
 • Maintain **ColorTree** collapsed statuses between editor opens and closes
@@ -38,4 +36,6 @@ After enabling the addon (Project > Project Settings > Plugins > ValueStateMaint
 
 • Allow easier editing of multiple different color pallets
 
-• Consider Triple or more color schemes, instead of one single and dual
+• Fix bug - User becomes locked out of ColorPicker when selecting any item on the **ColorMenu** (the PopupMenu shown upon right clicking on any folder or color in the **ColorTree**). Right click on the ColorPicker to fix temporarily.
+
+• Fix bug - Popups close when minimized and then reopened

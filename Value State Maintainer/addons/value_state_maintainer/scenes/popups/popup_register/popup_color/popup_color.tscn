@@ -40,6 +40,7 @@ visible = false
 exclusive = true
 always_on_top = true
 popup_window = true
+extend_to_title = true
 min_size = Vector2i(350, 650)
 keep_title_visible = true
 script = ExtResource("1_vbqoy")
@@ -196,5 +197,5 @@ disabled = true
 text = "Save"
 
 [connection signal="pressed" from="MarginContainer/Content/Top Dialog/Unregister" to="." method="_on_unregister"]
-[connection signal="pressed" from="MarginContainer/Content/Dock Comunicator/Dock Container/VBoxContainer/MarginContainer/HBoxContainer/Close" to="MarginContainer/Content/Dock Comunicator/Dock Container" method="hide"]
+[connection signal="pressed" from="MarginContainer/Content/Dock Comunicator/Dock Container/VBoxContainer/MarginContainer/HBoxContainer/Close" to="." method="_on_closed_pressed"]
 [connection signal="pressed" from="MarginContainer/Content/Bottom Dialog/CenterContainer/HBoxContainer/Cancel" to="." method="_emit_closed"]
