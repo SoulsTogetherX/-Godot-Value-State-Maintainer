@@ -8,7 +8,7 @@ const DEFAULT_FILE_PATH := "res://addons/value_state_maintainer/pallet_save/pall
 static var pallet_accessor : Node
 static var pallet : Dictionary
 
-static func get_direct(pathStr : String):
+static func get_direct(pathStr : String) -> Variant:
 	var path := pathStr.split("/")
 	
 	var value : Variant = pallet

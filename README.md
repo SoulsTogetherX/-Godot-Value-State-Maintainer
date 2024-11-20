@@ -18,8 +18,6 @@ After enabling the addon (Project > Project Settings > Plugins > ValueStateMaint
 
 • Support for properties other than 'Color' and 'int'
 
-• Support Arrays
-
 • Support for property hints and hint_string
 
 • Support Editor Themes

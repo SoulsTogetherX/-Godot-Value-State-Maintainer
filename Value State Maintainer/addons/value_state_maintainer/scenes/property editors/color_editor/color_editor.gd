@@ -16,10 +16,12 @@ func _open_popup() -> void:
 	await POPUP_MANAGER.popup.close_requested
 
 func _update_object_property() -> void:
-	var path = VALUE_REGISTER.get_registered_value(
-				get_edited_object(),
-				get_edited_property()
-				)
+	var path = (
+		VALUE_REGISTER.get_registered_array_value(array_object, property_path, index)
+		if is_array else
+		VALUE_REGISTER.get_registered_value(get_edited_object(), get_edited_property())
+	)
+	
 	if path == null:
 		_toggle_button(false)
 		return

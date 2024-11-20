@@ -16,7 +16,7 @@ static func remove_from_cache(id : String) -> void:
 		_cache[id].queue_free()
 		_cache.erase(id)
 
-static func show(id : String, editor_ref : EditorProperty, overwrite : bool = false) -> bool:
+static func show(id : String, editor_ref : BaseThemeEditorProperty, overwrite : bool = false) -> bool:
 	if is_open():
 		if !overwrite: return false
 		hide()

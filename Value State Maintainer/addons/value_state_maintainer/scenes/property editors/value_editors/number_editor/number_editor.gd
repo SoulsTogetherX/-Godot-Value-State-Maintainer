@@ -1,8 +1,12 @@
 extends ValueThemeEditorProperty
-func init():
+
+func init(range_args : Array) -> void:
 	_editor = EditorSpinSlider.new()
-	_editor.allow_greater = true
-	_editor.allow_lesser = true
+	_editor.min_value = range_args[0]
+	_editor.max_value = range_args[1]
+	_editor.step = range_args[2]
+	_editor.allow_greater = range_args[3]
+	_editor.allow_lesser = range_args[4]
 	
 	_editor.value_changed.connect(_on_value_change)
 	_set_default(0)
@@ -22,8 +26,18 @@ func _open_popup() -> void:
 	_dark_editor.allow_greater = true
 	_dark_editor.allow_lesser = true
 	
-	if VALUE_REGISTER.is_registered(get_edited_object(), get_edited_property()):
-		var values : Array = VALUE_REGISTER.get_registered_value(get_edited_object(), get_edited_property())
+	var registered : bool = (
+		VALUE_REGISTER.is_registered_array_index(array_object, property_path, index)
+		if is_array else
+		VALUE_REGISTER.is_registered(get_edited_object(), get_edited_property())
+	)
+	
+	if registered:
+		var values : Array = (
+			VALUE_REGISTER.get_registered_array_value(array_object, property_path, index)
+			if is_array else
+			VALUE_REGISTER.get_registered_value(get_edited_object(), get_edited_property())
+		)
 		_light_editor.value = values[0]
 		_dark_editor.value = values[1]
 	else:

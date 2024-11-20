@@ -84,7 +84,14 @@ func sort_item(parent : TreeItem, newItem: TreeItem) -> void:
 				break
 		elif newType == TYPE_DICTIONARY: break
 	
-	if !found || (parent.get_child_count() <= 2 && newType != TYPE_DICTIONARY && newItem.get_text(0) > placeholder.get_text(0)):
+	if found:
+		newItem.move_before(placeholder)
+	elif newType == typeof(placeholder.get_metadata(0)):
+		if newItem.get_text(0) > placeholder.get_text(0):
+			newItem.move_after(placeholder)
+		else:
+			newItem.move_before(placeholder)
+	elif newType != TYPE_DICTIONARY:
 		newItem.move_after(placeholder)
 	else:
 		newItem.move_before(placeholder)

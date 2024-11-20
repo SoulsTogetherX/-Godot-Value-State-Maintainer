@@ -17,6 +17,11 @@ var _editor : Control
 var _pallet_button_outline : StyleBoxFlat = StyleBoxFlat.new()
 var _pallet_button : Button = Button.new()
 
+var array_object : Object
+var property_path : StringName
+var index : int
+var is_array : bool = false
+
 func _ready() -> void:
 	for c : Node in get_children(true):
 		c.queue_free()
@@ -46,25 +51,34 @@ func _ready() -> void:
 	panel_container.add_child(_pallet_button)
 	
 	add_child(property_control)
-	_toggle_button(VALUE_REGISTER.is_registered(get_edited_object(), get_edited_property()))
+	call_deferred("_init_values")
 func _set_default(value) -> void:
 	_current_value = value
 
 func _update_property():
 	var new_value = get_edited_object()[get_edited_property()]
 	
-	if !_revert: VALUE_REGISTER.unregister(get_edited_object(), get_edited_property())
+	if !_revert && !is_array:
+		VALUE_REGISTER.unregister(get_edited_object(), get_edited_property())
 	if new_value != _current_value:
 		_current_value = new_value
 		_set_edit_value(new_value)
-	_toggle_button(VALUE_REGISTER.is_registered(get_edited_object(), get_edited_property()))
+	_toggle_button(
+		VALUE_REGISTER.is_registered_array_index(array_object, property_path, index)
+		if is_array else
+		VALUE_REGISTER.is_registered(get_edited_object(), get_edited_property())
+	)
 	_revert = false
 func _set_read_only(read_only: bool) -> void:
 	if read_only:
 		_disable_edit_value(true)
 		_pallet_button.disabled = true
 		return
-	_disable_edit_value(VALUE_REGISTER.is_registered(get_edited_object(), get_edited_property()))
+	_disable_edit_value(
+		VALUE_REGISTER.is_registered_array_index(array_object, property_path, index)
+		if is_array else
+		VALUE_REGISTER.is_registered(get_edited_object(), get_edited_property())
+	)
 	_pallet_button.disabled = false
 
 func _on_value_change(value : Variant) -> void:
@@ -75,6 +89,29 @@ func _on_pallet_button_pressed() -> void:
 	await _open_popup()
 	_update_object_property()
 
+func _init_values() -> void:
+	if get_edited_object().is_class("EditorPropertyArrayObject"):
+		var obj = get_parent()
+		while obj:
+			if obj.is_class("EditorPropertyArray"):
+				array_object = obj.get_edited_object()
+				property_path = obj.get_edited_property()
+				index = int(get_edited_property().get_slice("/", 1))
+				is_array = true
+				break
+			obj = obj.get_parent()
+	else:
+		array_object = get_edited_object()
+		property_path = get_edited_property()
+		is_array = false
+	
+	_toggle_button(
+		VALUE_REGISTER.is_registered_array_index(array_object, property_path, index)
+		if is_array else
+		VALUE_REGISTER.is_registered(get_edited_object(), get_edited_property())
+	)
+	_revert = true
+	update_property()
 func _toggle_button(toggle : bool) -> void:
 	if toggle:
 		_pallet_button_outline.border_color.a = 0.5

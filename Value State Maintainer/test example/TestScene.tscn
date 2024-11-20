@@ -1,14 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://dym5xsa3bgwe2"]
+[gd_scene load_steps=8 format=3 uid="uid://dym5xsa3bgwe2"]
 
 [ext_resource type="Script" path="res://test example/button.gd" id="1_lk1ws"]
 [ext_resource type="Script" path="res://test example/path_follow_2d.gd" id="2_jctjw"]
 [ext_resource type="Texture2D" uid="uid://dov4kncgd8iyb" path="res://icon.svg" id="3_sklkk"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jpd7x"]
-bg_color = Color(1, 1, 1, 1)
-metadata/__theme_maintainer__ = {
-"bg_color": "pal/Dual/Icon.d"
+[sub_resource type="Gradient" id="Gradient_hmhqa"]
+colors = PackedColorArray(1, 1, 0.839216, 1, 0.717647, 0.235294, 0.717647, 1)
+metadata/__value_maintainer_array__ = {
+"colors": {
+0: "pal/Background/Background_1.d",
+1: "pal/Background/Background_2.d"
 }
+}
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_q1w4u"]
+gradient = SubResource("Gradient_hmhqa")
+fill_to = Vector2(1, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wo6xf"]
+texture = SubResource("GradientTexture2D_q1w4u")
 
 [sub_resource type="Curve2D" id="Curve2D_xqs71"]
 _data = {
@@ -16,119 +26,128 @@ _data = {
 }
 point_count = 5
 
-[node name="VBoxContainer" type="Control"]
-layout_mode = 3
+[node name="PanelContainer" type="PanelContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_wo6xf")
+
+[node name="VBoxContainer" type="Control" parent="."]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="BoxContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+metadata/__value_maintainer__ = {
+"theme_override_constants/margin_top": [100.0, 200.0]
+}
+
+[node name="GridContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Rainbow-Red" type="ColorRect" parent="VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 0, 0, 1)
+metadata/__value_maintainer__ = {
+"color": "pal/Rainbow/Rainbow_1.d"
+}
+
+[node name="Rainbow-Orange" type="ColorRect" parent="VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 0.647059, 0, 1)
+metadata/__value_maintainer__ = {
+"color": "pal/Rainbow/Rainbow_2.d"
+}
+
+[node name="Rainbow-Yellow" type="ColorRect" parent="VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 1, 0, 1)
+metadata/__value_maintainer__ = {
+"color": "pal/Rainbow/Rainbow_3.d"
+}
+
+[node name="Rainbow-Green" type="ColorRect" parent="VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0, 1, 0, 1)
+metadata/__value_maintainer__ = {
+"color": "pal/Rainbow/Rainbow_4.c"
+}
+
+[node name="Rainbow-Blue" type="ColorRect" parent="VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0, 0, 1, 1)
+metadata/__value_maintainer__ = {
+"color": "pal/Rainbow/Rainbow_5.d"
+}
+
+[node name="Rainbow-Indigo" type="ColorRect" parent="VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.560784, 0, 1, 1)
+metadata/__value_maintainer__ = {
+"color": "pal/Rainbow/Rainbow_6.d"
+}
+
+[node name="Rainbow-Violet" type="ColorRect" parent="VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.294118, 0, 0.509804, 1)
+metadata/__value_maintainer__ = {
+"color": "pal/Rainbow/Rainbow_7.d"
+}
+
+[node name="Path2D" type="Path2D" parent="VBoxContainer/MarginContainer"]
+position = Vector2(400, 300)
+curve = SubResource("Curve2D_xqs71")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="VBoxContainer/MarginContainer/Path2D"]
+position = Vector2(-190.426, -66.639)
+rotation = -0.00280139
+script = ExtResource("2_jctjw")
+metadata/__value_maintainer__ = {
+"speed": [1.0, 5.0]
+}
+
+[node name="Icon" type="Sprite2D" parent="VBoxContainer/MarginContainer/Path2D/PathFollow2D"]
+position = Vector2(0.415802, 3.64018)
+texture = ExtResource("3_sklkk")
+metadata/__value_maintainer__ = {
+"self_modulate": "pal/Icon/Icon_Color.d"
+}
+
+[node name="BoxContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 offset_right = 1152.0
-offset_bottom = 100.0
+offset_bottom = 83.0
 size_flags_vertical = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Button" type="Button" parent="BoxContainer"]
+[node name="Button" type="Button" parent="VBoxContainer/BoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Swap Pallet"
 script = ExtResource("1_lk1ws")
-style = SubResource("StyleBoxFlat_jpd7x")
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 110.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="GridContainer" type="HBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Rainbow-Red" type="ColorRect" parent="MarginContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(1, 0, 0, 1)
-metadata/__theme_maintainer__ = {
-"color": "pal/Dual/Rainbow-1.d"
-}
-
-[node name="Rainbow-Orange" type="ColorRect" parent="MarginContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(1, 0.647059, 0, 1)
-metadata/__theme_maintainer__ = {
-"color": "pal/Dual/Rainbow-2.d"
-}
-
-[node name="Rainbow-Yellow" type="ColorRect" parent="MarginContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(1, 1, 0, 1)
-metadata/__theme_maintainer__ = {
-"color": "pal/Dual/Rainbow-3.d"
-}
-
-[node name="Rainbow-Green" type="ColorRect" parent="MarginContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0, 1, 0, 1)
-metadata/__theme_maintainer__ = {
-"color": "pal/Netural/Rainbow-4.c"
-}
-
-[node name="Rainbow-Blue" type="ColorRect" parent="MarginContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0, 0, 1, 1)
-metadata/__theme_maintainer__ = {
-"color": "pal/Dual/Rainbow-5.d"
-}
-
-[node name="Rainbow-Indigo" type="ColorRect" parent="MarginContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.294118, 0, 0.509804, 1)
-metadata/__theme_maintainer__ = {
-"color": "pal/Dual/Rainbow-6.d"
-}
-
-[node name="Rainbow-Violet" type="ColorRect" parent="MarginContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.560784, 0, 1, 1)
-metadata/__theme_maintainer__ = {
-"color": "pal/Dual/Rainbow-7.d"
-}
-
-[node name="Path2D" type="Path2D" parent="MarginContainer"]
-position = Vector2(400, 150)
-curve = SubResource("Curve2D_xqs71")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="MarginContainer/Path2D"]
-position = Vector2(-190.426, -66.639)
-rotation = -0.00280139
-script = ExtResource("2_jctjw")
-metadata/__theme_maintainer__ = {
-"speed": [1.0, 5.0]
-}
-
-[node name="Icon" type="Sprite2D" parent="MarginContainer/Path2D/PathFollow2D"]
-position = Vector2(0.415802, 3.64018)
-texture = ExtResource("3_sklkk")
-metadata/__theme_maintainer__ = {
-"self_modulate": "pal/Dual/Icon.d"
+metadata/__value_maintainer__ = {
+"theme_override_colors/font_color": "pal/Button/Button Font Color.c"
 }

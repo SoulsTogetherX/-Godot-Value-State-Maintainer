@@ -21,7 +21,24 @@ func popup_remove() -> void:
 	POPUP_MANAGER.remove_from_cache(CONSTANTS.COLOR_POPUP_ID)
 	POPUP_MANAGER.remove_from_cache(CONSTANTS.NUMBER_POPUP_ID)
 
-func _on_register(obj : Object, property : StringName, value : Variant) -> void:
-	VALUE_REGISTER.register(obj, property, value)
-func _on_unregister(obj : Object, property : StringName) -> void:
-	VALUE_REGISTER.unregister(obj, property)
+func _on_register(
+		is_array : bool,
+		obj : Object,
+		property : StringName,
+		value : Variant,
+		index : int = -1
+	) -> void:
+	if is_array:
+		VALUE_REGISTER.register_array_index(obj, property, index, value)
+	else:
+		VALUE_REGISTER.register(obj, property, value)
+func _on_unregister(
+		is_array : bool,
+		obj : Object,
+		property : StringName,
+		index : int = -1
+	) -> void:
+	if is_array:
+		VALUE_REGISTER.unregister_array_index(obj, property, index)
+	else:
+		VALUE_REGISTER.unregister(obj, property)

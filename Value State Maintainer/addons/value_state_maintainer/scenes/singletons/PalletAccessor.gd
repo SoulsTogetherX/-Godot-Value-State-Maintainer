@@ -74,11 +74,27 @@ func _scan_recursive(obj : Object) -> void:
 	_VALUE_REGISTER.validate_registered_properties(obj)
 	
 	for property in _VALUE_REGISTER.get_registered_properties(obj):
+		if not property in obj:
+			_VALUE_REGISTER.unregister(obj, property)
+			continue
+		
 		match typeof(obj[property]):
 			TYPE_COLOR:
 				obj[property] = _color_storage.COLOR_ACCESS.get_color(_VALUE_REGISTER.get_registered_value(obj, property))
 			_:
 				obj[property] = _VALUE_REGISTER.get_registered_value(obj, property)[1 if _isDark else 0]
+	
+	for array_path in _VALUE_REGISTER.get_registered_arrays(obj):
+		for index in _VALUE_REGISTER.get_registered_array_indexes(obj, array_path):
+			if not array_path in obj:
+				_VALUE_REGISTER.unregister_array(obj, array_path)
+				continue
+			
+			match typeof(obj[array_path][index]):
+				TYPE_COLOR:
+					obj[array_path][index] = _color_storage.COLOR_ACCESS.get_color(_VALUE_REGISTER.get_registered_array_value(obj, array_path, index))
+				_:
+					obj[array_path][index] = _VALUE_REGISTER.get_registered_array_value(obj, array_path, index)[1 if _isDark else 0]
 	
 	for resource in _VALUE_REGISTER.get_resource_properties(obj):
 		_scan_recursive(resource)
